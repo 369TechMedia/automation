@@ -31,13 +31,15 @@ time.sleep(2)  # Pause for 2 seconds
 close_button = WebDriverWait(driver, 10).until(
 EC.element_to_be_clickable((By.XPATH, "//button[@aria-label='Close']"))
 )
+
+
 close_button.click()
 
-# Step 2: Scroll down to the first item
+# Step 3: Scroll down to the first item
 first_item = driver.execute_script("window.scrollTo(0, window.scrollY + window.innerHeight/1);")
 time.sleep(1)  # Add a small delay to allow the page to load
 
-# Step 3: Click on the add to shopping cart button using XPath
+# Step 4: Click on the add to shopping cart button using XPath
 add_to_cart_button = driver.find_element(By.XPATH, "/html/body/app-root/div[1]/div[2]/div/app-taxonomy-wrapper/"+
                                                     "app-taxonomy/div[2]/div/div[2]/div/div[2]/app-product-list/div[2]/div/"+
                                                     "app-item-card[1]/div[5]/div[2]/button/span[1]")
@@ -51,9 +53,9 @@ EC.visibility_of_element_located((By.XPATH, "/html/body/ngb-modal-window/div/div
 time.sleep(3)
 # Verify that the pop-up is displayed
 if popup.is_displayed():
- print("Step 3: Passed - 1 Item added to cart pop-up is displayed")
+ print("Step 4: Passed - 1 Item added to cart pop-up is displayed")
 else:
- print("Step 3: Failed - 1 Item added to cart pop-up is not displayed")
+ print("Step 4: Failed - 1 Item added to cart pop-up is not displayed")
 
 
 closeIt = driver.find_element(By.XPATH, "/html/body/ngb-modal-window/div/div/app-cart-overlay/div[1]/button/span")
@@ -65,12 +67,9 @@ driver.quit()
 # +++++++++++++ Begin Test Case Script ++++++++++++++++++++++++++++++++++++++
 # Step Number,Step to Perform ,Expected Results
 # Step 1,Go to https://www.motion.com/,Motion home page is loaded
-# Step 2, Click on close to the cookies popup, The cookies pop up closes
-# Step 4,Scroll down to the first item that can be added to the shopping cart,First item is viewable
-
-# Step 3,Click on the Hydraulics link,The user is redirected to https://www.motion.com/products/Hydraulics
-
-# Step 5,Click on the add to shopping cart button,1 Item added to cart pop up is displayed
+# Step 2: Click the close button to dismiss the cookies popup, the cookies pop up closes
+# Step 3: Scroll down to the first item, first item on page is displaye
+# Step 4: Click on the add to shopping cart button,1 Item added to cart pop up is displayed
 # ++++++++++++++++++ End Test Case script ++++++++++++++++++++++++++++++++++++++++
 
 
