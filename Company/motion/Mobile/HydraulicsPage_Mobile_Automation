@@ -1,1 +1,53 @@
 
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+from appium import webdriver
+
+desired_caps = {
+    'platformName': 'Android',  # Or 'iOS' for iOS devices
+    'deviceName': 'Your Device Name',  # Replace with the name of your device/emulator
+    'appPackage': 'com.example.myapp',  # Replace with the actual package name of your app
+    'appActivity': 'com.example.myapp.MainActivity'  # Replace with the actual main activity of your app
+}
+
+driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps
+
+
+# Step 1: Go to https://www.motion.com/
+driver = webdriver.Chrome()  # Assuming you have Chrome WebDriver installed
+driver.get("https://www.motion.com/")
+
+# Verify if Motion home page is loaded
+expected_title = "Motion"
+assert expected_title in driver.title, "Motion home page is not loaded."
+
+# Step 2: Click on the Hydraulics link
+hydraulics_link = driver.find_element(By.LINK_TEXT, "Hydraulics")
+hydraulics_link.click()
+
+# Verify if the user is redirected to https://www.motion.com/products/Hydraulics
+expected_url = "https://www.motion.com/products/Hydraulics"
+WebDriverWait(driver, 10).until(EC.url_to_be(expected_url)), "User is not redirected to Hydraulics page."
+
+# Step 3: Scroll down to the first item that can be added to the shopping cart
+first_item = driver.find_element(By.CSS_SELECTOR, ".product-item")
+driver.execute_script("arguments[0].scrollIntoView(true);", first_item)
+
+# Verify if the first item is viewable
+assert first_item.is_displayed(), "First item is not viewable."
+
+# Step 4: Click on the add to shopping cart button
+add_to_cart_button = first_item.find_element(By.CLASS_NAME, "add-to-cart-button")
+add_to_cart_button.click()
+
+# Verify if "1 Item added to cart" pop-up is displayed
+cart_popup = WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "cart-popup")))
+expected_text = "1 Item added to cart"
+assert expected_text in cart_popup.text, "1 Item added to cart pop-up is not displayed."
+
+# Close the browser
+driver.quit()
+
