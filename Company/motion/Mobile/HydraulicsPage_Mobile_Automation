@@ -1,3 +1,19 @@
+# This selenium script for Mobile was created by Jim ORourke on 7/3/2023
+# It is only for FYI Purposes only and to showcase Automation abilities to potiential employers
+
+# This script uses the Motion mobile app as its basis. It is non descrutive maining it does not add anything
+# to a shopping cart or register any users it is only for informational purposes and can be used by anybody for that sole purpose
+# 
+# How it works: Do you need to figure out a way to scroll in selenium. Check out Step 3
+# The test case that this automation script was built off of is included at the bottom of this script
+# Just match up the Step number comments in the script to the test case number in the comments section at the bottom of this script
+# Also, check out the YouTube channel 369TechMedia @369TechMedia for additional testing information and you will even get to see my ugly mug. Can't say you haven't been warned :)
+# The Mobile script of this test case can be located in the \Motions\ folder in the Github repository where this script was located.
+# Happy Testing all
+
+# This selenium script was created in OS Win 11, Intelli J, Python, Selenium
+# At creation of this script all web element locators were valid. You may need to tweak if you cut an paste this script
+
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
