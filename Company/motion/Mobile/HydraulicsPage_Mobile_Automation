@@ -50,3 +50,10 @@ assert expected_text in cart_popup.text, "1 Item added to cart pop-up is not dis
 # Close the browser
 driver.quit()
 
+# +++++++++++++ Begin Test Case Script ++++++++++++++++++++++++++++++++++++++
+# Step Number,Step to Perform ,Expected Results
+# Step 1,Go to https://www.motion.com/,Motion home page is loaded
+# Step 2,Click on the Hydraulics link,The user is redirected to https://www.motion.com/products/Hydraulics
+# Step 3,Scroll down to the first item that can be added to the shopping cart,First item is viewable
+# Step 4,Click on the add to shopping cart button,1 Item added to cart pop up is displayed
+# ++++++++++++++++++ End Test Case script ++++++++++++++++++++++++++++++++++++++++
