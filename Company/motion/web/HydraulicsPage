@@ -1,0 +1,73 @@
+# This selenium script was created by Jim ORourke on 7/3/2023
+# It is only for FYI Purposes only and to showcase Automation abilities to potiential employers
+# This script uses the Motion.com website as its bases. It is non 0escrutive maining it does not add anything
+# to a shopping cart or register any users it is only for informational purposes and can be used by anybody for that sole purpose
+# need to figure out a way to scroll in selenium. Check out Step 2
+# The test case that this automation script was built off of is included at the bottom of this script
+# Just match up the Step number comments in the script to the test case number in the comments section at the bottom of this script
+# Also, check out the YouTube channel 369TechMedia @369TechMedia for additional testing information and you will even get to see my ugly mug. Can't say you haven't been warned :)
+# The Mobile script of this test case can be located in the \Motions\ folder in the Github repository where this script was located.
+# Happy Testing all
+
+# This selenium script was created in OS Win 11, Intelli J, Python, Selenium
+# At creation of this script all web element locators were valid. You may need to tweak if you cut an paste this script
+
+import time
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+# Step 1: Load the Hydraulics page
+driver = webdriver.Chrome()
+driver.get("https://www.motion.com/products/Hydraulics/")
+
+driver.maximize_window()
+# Wait for the accept cookies popup to appear
+time.sleep(2)  # Pause for 2 seconds
+
+close_button = WebDriverWait(driver, 10).until(
+EC.element_to_be_clickable((By.XPATH, "//button[@aria-label='Close']"))
+)
+
+# Click the close button to dismiss the cookies popup
+close_button.click()
+
+# Step 2: Scroll down to the first item
+first_item = driver.execute_script("window.scrollTo(0, window.scrollY + window.innerHeight/1);")
+time.sleep(1)  # Add a small delay to allow the page to load
+
+# Step 3: Click on the add to shopping cart button using XPath
+add_to_cart_button = driver.find_element(By.XPATH, "/html/body/app-root/div[1]/div[2]/div/app-taxonomy-wrapper/"+
+                                                    "app-taxonomy/div[2]/div/div[2]/div/div[2]/app-product-list/div[2]/div/"+
+                                                    "app-item-card[1]/div[5]/div[2]/button/span[1]")
+add_to_cart_button.click()
+
+# # Wait for the "1 Item added to cart" pop-up to be displayed
+popup = WebDriverWait(driver, 10).until(
+EC.visibility_of_element_located((By.XPATH, "/html/body/ngb-modal-window/div/div/app-cart-overlay/div[1]/div/div[1]"))
+ )
+
+time.sleep(3)
+# Verify that the pop-up is displayed
+if popup.is_displayed():
+ print("Step 3: Passed - 1 Item added to cart pop-up is displayed")
+else:
+ print("Step 3: Failed - 1 Item added to cart pop-up is not displayed")
+
+
+closeIt = driver.find_element(By.XPATH, "/html/body/ngb-modal-window/div/div/app-cart-overlay/div[1]/button/span")
+closeIt.click()
+
+# Close the browser
+driver.quit()
+
+# +++++++++++++ Begin Test Case Script ++++++++++++++++++++++++++++++++++++++
+# Step Number,Step to Perform ,Expected Results
+# Step 1,Go to https://www.motion.com/,Motion home page is loaded
+# Step 2,Click on the Hydraulics link,The user is redirected to https://www.motion.com/products/Hydraulics
+# Step 3,Scroll down to the first item that can be added to the shopping cart,First item is viewable
+# Step 4,Click on the add to shopping cart button,1 Item added to cart pop up is displayed
+# ++++++++++++++++++ End Test Case script ++++++++++++++++++++++++++++++++++++++++
+
+
