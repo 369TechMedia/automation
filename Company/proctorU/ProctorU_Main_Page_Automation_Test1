@@ -1,1 +1,67 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import time
+
+# Create a new instance of the Chrome driver
+driver = webdriver.Chrome()
+
+# Step 1: Go to ProctorU website
+driver.get("https://www.proctoru.com/")
+
+driver.maximize_window()
+# Step 2: Close the cookies popup
+cookies_popup = WebDriverWait(driver, 10).until(
+EC.visibility_of_element_located((By.CLASS_NAME, "cc-banner"))
+)
+close_button = cookies_popup.find_element(By.XPATH, "/html/body/div[2]/span[3]/span")
+close_button.click()
+#
+# Step 3: Verify the presence of the specified text
+expected_text = "Don’t worry, everything you know and love about ProctorU remains the same: the people, offerings, trust, and innovation. More importantly, your current access to the ProctorU Proctoring Platform remains unchanged. By uniting ProctorU’s and Yardstick’s unique offerings, our mission is stronger than ever: to move people forward in their academic and professional pursuits."
+actual_text = driver.find_element(By.TAG_NAME, "body").text
+assert expected_text in actual_text, "Text is not present on the page"
+#
+# Step 4: Scroll down to "Get Help or Support for the ProctorU Platform"
+support_text = "Get Help or Support for the ProctorU Platform"
+# support_section = driver.find_element(By.XPATH, f"//*[text()='{support_text}']")
+support_section = driver.find_element(By.XPATH,
+                                      f"//*[text()='{support_text}']")
+driver.execute_script("arguments[0].scrollIntoView();", support_section)
+#
+
+time.sleep(6)
+# # Step 5: Verify the presence of the specified text
+# help_text = "The fastest way to get help is to log into your ProctorU Platform account and click the blue chat icon in the lower right corner of the screen.\n\nIf you do not have a ProctorU Platform account, or if you’re having trouble logging in, you can use this link to start a chat with a support representative."
+# actual_text = driver.find_element(By.TAG_NAME, "body").text
+# assert help_text in actual_text, "Text is not present on the page"
+#
+# # Step 6: Open the "Take an Exam" link in a new tab
+# take_exam_link = driver.find_element(By.LINK_TEXT, "Take an Exam")
+# driver.execute_script("window.open(arguments[0].href,'_blank');", take_exam_link)
+#
+# # Switch to the newly opened tab
+# driver.switch_to.window(driver.window_handles[1])
+#
+# # Verify the presence of the specified text on the new page
+# expected_text = "The ProctorU\nSign in to Your Account"
+# actual_text = driver.find_element(By.TAG_NAME, "body").text
+# assert expected_text in actual_text, "Text is not present on the page"
+#
+# # Close the browser
+# driver.quit()
+
+
+Test Case:
+
+| Step | Actual                                                                                                 | Expected                                                                        |
+|------|-------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
+| 1    | Go to https://www.proctoru.com/                                                                       | ProctorU home page is displayed                                                 |
+| 2    | Click on the X to close the cookies popup.                                                            | The cookies popup closes                                                        |
+| 3    | Verify the text: Don’t worry, everything you know and love about ProctorU remains the same...          | Text is present on the page                                                     |
+| 4    | Scroll down to: Get Help or Support for the ProctorU Platform                                         | Text is present on the page                                                     |
+| 5    | Verify Text: The fastest way to get help is to log into your ProctorU Platform account...              | Text is present on the page                                                     |
+| 6    | Open link Take an Exam into a new tab                                                                 | The ProctorU Sign in to Your Account text is present. And the user is on this page |
+
 
