@@ -1,6 +1,6 @@
 # This selenium script was created by Jim ORourke on 7/3/2023
 # It is only for FYI Purposes only and to showcase Automation abilities to potiential employers
-# This script uses the Motion.com website as its bases. It is non descrutive meaning it does not add anything
+# This script uses the Motion.com website as its basis. It is non descrutive meaning it does not add anything
 # to a shopping cart or register any users it is only for informational purposes only and can be used by anybody for that sole purpose
 
 # How it works: Do you need to figure out a way to scroll in selenium. Check out Step 2
