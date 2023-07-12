@@ -1,0 +1,57 @@
+
+import time
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+# Step 1: Load the Hydraulics page
+driver = webdriver.Chrome()
+driver.get("https://www.motion.com/")
+print("Step 1: Passed - Hydraulics Page loaded")
+
+driver.maximize_window()
+print("Step 1a: Passed - Browswe is maximised")
+# time.sleep(3)
+
+# Wait for the accept cookies popup to appear
+time.sleep(2)  # Pause for 2 seconds
+
+# Step 2: Click the close button to dismiss the cookies popup if it displays
+close_button = WebDriverWait(driver, 10).until(
+EC.element_to_be_clickable((By.XPATH, "//button[@aria-label='Close']"))
+)
+print("Step 2: Passed - Pop up is present")
+
+close_button.click()
+print("Step 2a: Passed - Pop Up is dismissed")
+
+#  Play around with this time.sleep. Comment it out, make it enabled.
+# notice the difference in how the window.srollY command in the first_item varaible below behaves.
+# time.sleep(3)
+
+# Step 3: Scroll down to the first item
+# Change the numeric value for the /1 in the innerHeight. Try different values like /2, /3 notice the changes in the
+# scrolling of the page. Research how many different values there are.
+first_item = driver.execute_script("window.scrollTo(0, window.scrollY + window.innerHeight/1);")
+time.sleep(1)  # Add a small delay to allow the page to load
+
+# ++++++++++++++++++ Challange Starts Here +++++++++++++++++++++++++++++++++++++++
+# # Step 4: Click on the add to shopping cart button using XPath
+# add_to_cart_button = driver.find_element(By , )
+# add_to_cart_button.click()
+#  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+time.sleep(3)
+# Close the browser
+driver.quit()
+print("Step 5: Browser shut down")
+
+# +++++++++++++ Begin Test Case Script ++++++++++++++++++++++++++++++++++++++
+# Step Number    Step to Perform                                         Expected Results
+# Step 1          Go to https://www.motion.com/                          home page is loaded
+# Step 2:         Click the close button to dismiss the cookies popup    the cookies pop up closes
+# Step 3:         Scroll down to the first item                          first item on page is displaye
+# Step 4:         Click on the add to shopping cart button               1 Item added to cart pop up is displayed
+# Step 5:         Quit the Broswer                                       Broswe shuts down and automation test ends successfully
+# ++++++++++++++++++ End Test Case script ++++++++++++++++++++++++++++++++++++++++
