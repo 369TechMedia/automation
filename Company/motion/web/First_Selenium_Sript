@@ -1,0 +1,69 @@
+# This selenium script was created in OS Win 11, Python, Selenium
+# At creation of this script all web element locators were valid. You may need to tweak if you cut an paste this script
+
+import time
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+# Step 1: Load the Hydraulics page
+driver = webdriver.Chrome()
+driver.get("https://www.motion.com/products/Hydraulics/")
+print("Step 1: Passed - Hydraulics Page loaded")
+
+driver.maximize_window()
+print("Step 1a: Passed - Browswe is maximised")
+time.sleep(3)
+
+# Wait for the accept cookies popup to appear
+time.sleep(2)  # Pause for 2 seconds
+
+# Step 2: Click the close button to dismiss the cookies popup if it displays
+close_button = WebDriverWait(driver, 10).until(
+EC.element_to_be_clickable((By.XPATH, "//button[@aria-label='Close']"))
+)
+print("Step 2: Passed - Pop up is present")
+
+close_button.click()
+print("Step 2a: Passed - Pop Up is dismissed")
+
+# Step 3: Scroll down to the first item
+first_item = driver.execute_script("window.scrollTo(0, window.scrollY + window.innerHeight/1);")
+time.sleep(1)  # Add a small delay to allow the page to load
+
+# Step 4: Click on the add to shopping cart button using XPath
+add_to_cart_button = driver.find_element(By.XPATH, "/html/body/app-root/div[1]/div[2]/div/app-taxonomy-wrapper/app-taxonomy/"+
+                                                        "div[2]/div/div[2]/div/div[2]/"+
+                                                      "app-product-list/div[2]/div/app-item-card[1]/div[5]/div[2]/button/span[1]")
+add_to_cart_button.click()
+
+# # Wait for the "1 Item added to cart" pop-up to be displayed
+popup = WebDriverWait(driver, 10).until(
+EC.visibility_of_element_located((By.XPATH, "/html/body/ngb-modal-window/div/div/app-cart-overlay/div[1]/div/div[1]"))
+
+ )
+
+
+# Verify that the pop-up is displayed
+if popup.is_displayed():
+ print("Step 4: Passed - Pop up is dismissed")
+else:
+ print("Step 4a: Failed - Pop Up is not dismissed")
+
+
+closeIt = driver.find_element(By.XPATH, "/html/body/ngb-modal-window/div/div/app-cart-overlay/div[1]/button/span")
+closeIt.click()
+
+# Close the browser
+driver.quit()
+print("Step 5: Browser shut down")
+
+# +++++++++++++ Begin Test Case Script ++++++++++++++++++++++++++++++++++++++
+# Step Number,Step to Perform ,Expected Results
+# Step 1,Go to https://www.motion.com/products/Hydraulics/       , home page is loaded
+# Step 2: Click the close button to dismiss the cookies popup    , the cookies pop up closes
+# Step 3: Scroll down to the first item                          , first item on page is displaye
+# Step 4: Click on the add to shopping cart button,               1 Item added to cart pop up is displayed
+# Step 5: Quit the Broswer
+# ++++++++++++++++++ End Test Case script ++++++++++++++++++++++++++++++++++++++++
